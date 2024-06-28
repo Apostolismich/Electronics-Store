@@ -1,2 +1,2 @@
 # Electronics-Store
-This it another project for electronics store.
+This is another project for electronics store.
