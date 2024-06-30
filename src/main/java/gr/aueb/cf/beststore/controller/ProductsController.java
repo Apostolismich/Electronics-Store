@@ -3,7 +3,6 @@ package gr.aueb.cf.beststore.controller;
 import gr.aueb.cf.beststore.models.Product;
 import gr.aueb.cf.beststore.models.ProductDto;
 import gr.aueb.cf.beststore.services.ProductsRepository;
-//import jakarta.validation.Path;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -23,14 +22,14 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-@RequestMapping("/products")
+@RequestMapping("/")
 public class ProductsController {
 
     @Autowired
     private ProductsRepository repo;
 
     @GetMapping({"", "/"})
-    public String showProductList(Model model) {
+    public String showProducts(Model model) {
         List<Product> products = repo.findAll(Sort.by(Sort.Direction.DESC, "id"));
         model.addAttribute("products", products);
         return "products/index";
@@ -109,7 +108,7 @@ public class ProductsController {
         return "products/EditProduct";
     }
 
-    @PostMapping("/edit")
+    @PutMapping("/edit")
     public String updateProduct(
             Model model, @RequestParam int id,
             @Valid @ModelAttribute ProductDto productDto,
@@ -158,7 +157,7 @@ public class ProductsController {
         return "redirect:/products";
     }
 
-    @GetMapping("/delete")
+    @DeleteMapping("/delete")
     public String deleteProduct(@RequestParam int id) {
 
         try {
